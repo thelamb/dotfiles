@@ -4,3 +4,6 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/tsaleh/vim-supertab.git
+[submodule "bundle/localvimrc"]
+	path = bundle/localvimrc
+	url = https://github.com/vim-scripts/localvimrc.git
