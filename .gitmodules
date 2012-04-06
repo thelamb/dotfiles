@@ -3,7 +3,7 @@
 	url = git://git.wincent.com/command-t.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
-	url = https://github.com/tsaleh/vim-supertab.git
+	url = https://github.com/ervandew/supertab.git
 [submodule "bundle/localvimrc"]
 	path = bundle/localvimrc
 	url = https://github.com/vim-scripts/localvimrc.git
