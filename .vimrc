@@ -12,6 +12,9 @@ set nocompatible
 set t_Co=256
 colorscheme mustang 
 
+let g:pathogen_disabled = [] " To disable a plugin, add it's bundle name to the following list
+" call add(g:pathogen_disabled, 'command-t')
+
 " Ivoke Pathogen
 call pathogen#infect()
 

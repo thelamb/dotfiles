@@ -1,0 +1,65 @@
+# std::map
+snippet map
+	std::map<${1:key}, ${2:value}> ${3};
+
+# std::vector
+snippet vector
+	std::vector<${1:char}> ${2};
+
+# Namespace
+snippet ns
+	namespace ${1:`Filename('', 'my')`} {
+		${2}
+	} // namespace $1 
+snippet ns2
+	namespace ${1:`Filename('', 'my')`} {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+snippet ns3
+	namespace ${1:`Filename('', 'my')`} {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+snippet ns4
+	namespace ${1:`Filename('', 'my')`} {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+	namespace $1 {
+		${2}
+	} // namespace $1 
+snippet fori
+	auto itEnd = ${1:container}.end();
+	for( auto it = $1.begin(); it != itEnd; ++it) 
+	{
+		${4}
+	}
+snippet fori2
+	auto itEnd${2:name} = ${1:container}.end();
+	for( auto it$2 = $1.begin(); it$2 != itEnd; ++it$2) 
+	{
+		${4}
+	}
+snippet guard
+	#ifndef ${1:filename}_H_INCLUDED
+	#define $1_H_INCLUDED
+	
+	namespace ${2:ns}
+	{
+		${3}
+	} // namespace $2
+	
+	#endif // include guard
