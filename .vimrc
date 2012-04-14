@@ -8,17 +8,51 @@ endif
 " Use VIM settings, no vi compatibility
 set nocompatible
 
+filetype off                   " required for Vundle
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Github scripts
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails'
+Bundle 'vim-scripts/localvimrc'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-abolish'
+Bundle 'tsaleh/vim-supertab'
+Bundle 'garbas/vim-snipmate'
+Bundle 'tomtom/tlib_vim'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'honza/snipmate-snippets'
+Bundle 'godlygeek/tabular'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'altercation/vim-colors-solarized'
+" Vim.org scripts
+Bundle 'taglist.vim'
+Bundle 'a.vim'
+Bundle 'bufexplorer.zip'
+Bundle 'vimlatex'
+
+" Non - GitHib Repos
+
 " Colour scheme
+syntax enable
+set background=dark
 set t_Co=256
 colorscheme mustang 
 
-let g:pathogen_disabled = [] " To disable a plugin, add it's bundle name to the following list
+"let g:pathogen_disabled = [] " To disable a plugin, add it's bundle name to the following list
 " call add(g:pathogen_disabled, 'command-t')
 
 " Ivoke Pathogen
-call pathogen#infect()
-
-syntax enable
+"call pathogen#infect()
 
 " ======================================================================================= Plugin options
 
