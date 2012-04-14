@@ -18,7 +18,6 @@ Bundle 'gmarik/vundle'
 " Github scripts
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'tpope/vim-surround'
