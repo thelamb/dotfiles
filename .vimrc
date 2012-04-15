@@ -168,14 +168,7 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" Buffer Switching:
-"   F2 = next buffer
-"   F3 = previous buffer
-"   F4 = kill buffer
-inoremap <F2> <Esc> :BB<cr>
-inoremap <F3> <Esc> :BF<cr> 
-noremap  <F2> :BB<cr>
-noremap  <F3> :BF<cr> 
+"   F4 = kill buffer without losing splits
 nmap     <F4> <Plug>BufKillBd
 
 " Buffer explorer
@@ -184,10 +177,14 @@ nnoremap <leader>be :BufExplorer<cr>
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
 
+" Fix some Vim awkwardness 
+nnoremap Y y$
+command Wa wa
+command Wqa wqa
 " Make escaping easier
 inoremap jj <ESC>
 
-" Maps for dealing with split views
+" Moving around splits
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -216,7 +213,7 @@ vnoremap <leader>ag :Tabularize / [sg]et/l0<cr> :Tabularize /[sg]et\w*\zs(<cr> :
 nnoremap <leader>ai :Tabularize /_.*\zs(<cr> :Tabularize /^ .*\zs)<cr>
 
 " Easier saving
-nnoremap <leader>s :w<cr>
+nnoremap <leader>s :wa<cr>
 
 " Switch between code and header file
 nnoremap <leader>o  :FSHere<cr>
