@@ -47,12 +47,6 @@ set background=dark
 set t_Co=256
 colorscheme mustang 
 
-"let g:pathogen_disabled = [] " To disable a plugin, add it's bundle name to the following list
-" call add(g:pathogen_disabled, 'command-t')
-
-" Ivoke Pathogen
-"call pathogen#infect()
-
 " ======================================================================================= Plugin options
 
 " Clang_complete options
@@ -62,6 +56,9 @@ let g:clang_complete_copen=0
 let g:localvimrc_count   = 1
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask     = 0
+
+" Control-p is bad at managing working-dir, so disable it
+let g:ctrlp_working_path_mode = 0
 
 " ====================================================================================== Auto Command
 
