@@ -33,9 +33,9 @@ Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'derekwyatt/vim-fswitch'
 " Vim.org scripts
 Bundle 'taglist.vim'
-Bundle 'a.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
 
