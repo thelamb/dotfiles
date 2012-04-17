@@ -60,7 +60,7 @@ let g:localvimrc_ask     = 0
 " Control-p is bad at managing working-dir, so disable it
 let g:ctrlp_working_path_mode = 0
 " Remove respo directories from search
-let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn'
+let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn|\.un~$|\.o$'
 
 " ====================================================================================== Auto Command
 
