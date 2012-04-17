@@ -1,3 +1,7 @@
+snippet inc 
+	#include <${1}>
+snippet 
+	ino #include "${1}.h"
 # std::map
 snippet map
 	std::map<${1:key}, ${2:value}> ${3};
@@ -8,39 +12,33 @@ snippet vector
 
 # Namespace
 snippet ns
-	namespace ${1:`Filename('', 'my')`} {
+	namespace ${1} {
 		${2}
 	} // namespace $1 
 snippet ns2
-	namespace ${1:`Filename('', 'my')`} {
-		${2}
+	namespace ${1} {
+	namespace ${2} {
+		${3}
 	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
+	} // namespace $2 
 snippet ns3
-	namespace ${1:`Filename('', 'my')`} {
-		${2}
+	namespace ${1} {
+	namespace ${2} {
+	namespace ${3} {
+		${4}
 	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
+	} // namespace $2 
+	} // namespace $3 
 snippet ns4
-	namespace ${1:`Filename('', 'my')`} {
-		${2}
+	namespace ${1} {
+	namespace ${2} {
+	namespace ${3} {
+	namespace ${4} {
+		${5}
 	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
-	namespace $1 {
-		${2}
-	} // namespace $1 
+	} // namespace $2 
+	} // namespace $3 
+	} // namespace $4 
 snippet fori
 	auto itEnd = ${1:container}.end();
 	for( auto it = $1.begin(); it != itEnd; ++it) 
