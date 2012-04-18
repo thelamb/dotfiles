@@ -182,6 +182,12 @@ command Wa wa
 command Wqa wqa
 " Make escaping easier
 inoremap jj <ESC>
+" I like ctrl-s to save-all
+nnoremap <leader>s :wa
+
+" Writing : is annoying
+nnoremap <leader>; :
+
 
 " Moving around splits
 nnoremap <leader>w <C-w>v<C-w>l
