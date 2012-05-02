@@ -141,7 +141,7 @@ set hidden
 set wildmenu
 set wildmode=list:full
 "set visualbell
-set cursorline
+set nocursorline "cursor line is annoying
 set ttyfast
 set ruler
 set laststatus=2
@@ -160,12 +160,8 @@ vnoremap . :normal .<CR>
 nnoremap j gj
 nnoremap k gk
 
-" ================================================================ F-key shortcuts
-
-" I keep hitting F1 when I mean ESC
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+" Open a new tab
+nnoremap <leader>t :tabnew<cr>
 
 "   F4 = kill buffer without losing splits
 nmap     <F4> <Plug>BufKillBd
@@ -200,6 +196,12 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
+" ================================================================ F-key shortcuts
+
+" I keep hitting F1 when I mean ESC
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 
 " ===================================================================== Tabularize mapping
 
