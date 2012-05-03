@@ -15,30 +15,34 @@ snippet ns
 	namespace ${1:ns} {
 		${2}
 	} // namespace $1 
+
 snippet ns2
 	namespace ${1:ns} {
 	namespace ${2:ns} {
 		${3}
-	} // namespace $1 
 	} // namespace $2 
+	} // namespace $1 
+
 snippet ns3
 	namespace ${1:ns} {
 	namespace ${2:ns} {
 	namespace ${3:ns} {
 		${4}
-	} // namespace $1 
-	} // namespace $2 
 	} // namespace $3 
+	} // namespace $2 
+	} // namespace $1 
+
 snippet ns4
 	namespace ${1:ns} {
 	namespace ${2:ns} {
 	namespace ${3:ns} {
 	namespace ${4:ns} {
 		${5}
-	} // namespace $1 
-	} // namespace $2 
-	} // namespace $3 
 	} // namespace $4 
+	} // namespace $3 
+	} // namespace $2 
+	} // namespace $1 
+	
 snippet fori
 	auto itEnd = ${1:container}.end();
 	for( auto it = $1.begin(); it != itEnd; ++it ) 
