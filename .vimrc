@@ -34,6 +34,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'derekwyatt/vim-fswitch'
+Bundle 'sjl/gundo.vim'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -61,6 +62,17 @@ let g:localvimrc_ask     = 0
 let g:ctrlp_working_path_mode = 0
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a$'
+
+" Taglist stuff
+let Tlist_Close_On_Select=1
+let Tlist_Auto_Highlight_Tag=1
+let Tlist_Use_Right_Window=1
+let Tlist_WinWidth=100
+
+" Gundo
+let g:gundo_width=100
+let g:gundo_preview_bottom=1
+
 
 " ====================================================================================== Auto Command
 
@@ -163,18 +175,13 @@ nnoremap k gk
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
 
-" Taglist stuff
-let Tlist_Close_On_Select=1
-let Tlist_Auto_Highlight_Tag=1
-let Tlist_Use_Right_Window=1
-let Tlist_WinWidth=100
 nnoremap <silent> <leader>l :TlistToggle<cr>
 
 "   F4 = kill buffer without losing splits
 nmap     <F4> <Plug>BufKillBd
 
 " Buffer explorer
-nnoremap <leader>be :BufExplorer<cr>
+nnoremap <leader>e :BufExplorer<cr>
 
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
@@ -191,6 +198,8 @@ nnoremap <leader>s :wa
 " Writing : is annoying
 nnoremap <leader>; :
 
+" ^ is annoying
+nnoremap <leader>1 ^
 
 " Moving around splits
 nnoremap <leader>w <C-w>v<C-w>l
