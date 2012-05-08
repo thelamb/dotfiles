@@ -163,6 +163,13 @@ nnoremap k gk
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
 
+" Taglist stuff
+let Tlist_Close_On_Select=1
+let Tlist_Auto_Highlight_Tag=1
+let Tlist_Use_Right_Window=1
+let Tlist_WinWidth=100
+nnoremap <silent> <leader>l :TlistToggle<cr>
+
 "   F4 = kill buffer without losing splits
 nmap     <F4> <Plug>BufKillBd
 
@@ -224,8 +231,8 @@ nnoremap <leader>s :wa<cr>
 
 " Switch between code and header file
 nnoremap <leader>o  :FSHere<cr>
-nnoremap <leader>lo :FSSplitLeft<cr>
-nnoremap <leader>ro :FSSplitRight<cr>
+nnoremap <leader>io :FSSplitLeft<cr>
+nnoremap <leader>po :FSSplitRight<cr>
 
 " ====================================================================== General, uninteresting stuff
 
