@@ -61,7 +61,7 @@ let g:localvimrc_ask     = 0
 " Control-p is bad at managing working-dir, so disable it
 let g:ctrlp_working_path_mode = 0
 " Remove respo directories from search
-let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a$'
+let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.java$'
 
 " Taglist stuff
 let Tlist_Close_On_Select=1
@@ -227,6 +227,7 @@ vnoremap <F1> <ESC>
 "vnoremap <leader>f :Tabularize /\S\zs .*\ze(<cr>:Tabularize /(<cr>
 
 " Improved = alignment:
+nnoremap <leader>z  :Tabularize /
 nnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
 vnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
 
