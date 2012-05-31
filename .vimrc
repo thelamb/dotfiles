@@ -67,7 +67,9 @@ let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|
 let Tlist_Close_On_Select=1
 let Tlist_Auto_Highlight_Tag=1
 let Tlist_Use_Right_Window=1
-let Tlist_WinWidth=100
+let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_WinWidth=150
+let Tlist_Sort_Type="name"
 
 " Gundo
 let g:gundo_width=100
