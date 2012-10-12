@@ -35,6 +35,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
+Bundle 'tomasr/molokai'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -46,7 +47,7 @@ Bundle 'vimlatex'
 syntax enable
 set background=dark
 set t_Co=256
-colorscheme mustang 
+colorscheme molokai 
 
 " ======================================================================================= Plugin options
 
