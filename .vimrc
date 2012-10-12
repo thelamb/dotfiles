@@ -40,6 +40,7 @@ Bundle 'tomasr/molokai'
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
+Bundle 'AutoClose'
 
 " Non - GitHib Repos
 
