@@ -13,7 +13,7 @@ filetype off                   " required for Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
+"Bundle 'gmarik/vundle'
 
 " Github scripts
 Bundle 'tpope/vim-fugitive'
@@ -36,6 +36,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
 Bundle 'tomasr/molokai'
+Bundle 'kevinw/pyflakes-vim'
+Bundle 'pyflakes/pyflakes'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -142,6 +144,7 @@ set formatoptions=qrn1
 
 " Directories
 set backupdir=~/.vimback,/tmp
+
 set directory=.,~/.vimback,/tmp
 let yankring_history_dir="~/.vim"
 
