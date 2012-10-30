@@ -13,7 +13,7 @@ filetype off                   " required for Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-"Bundle 'gmarik/vundle'
+Bundle 'gmarik/vundle'
 
 " Github scripts
 Bundle 'tpope/vim-fugitive'
@@ -28,7 +28,6 @@ Bundle 'tsaleh/vim-supertab'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'honza/snipmate-snippets'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
@@ -42,7 +41,6 @@ Bundle 'pyflakes/pyflakes'
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
-Bundle 'AutoClose'
 " Non - GitHib Repos
 
 " Colour scheme
@@ -50,6 +48,13 @@ syntax enable
 set background=dark
 set t_Co=256
 colorscheme molokai 
+let g:molokai_original = 1
+
+" Fix some of the molokai colours
+
+autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
+
+syn keyword std boost
 
 " ======================================================================================= Plugin options
 
