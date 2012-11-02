@@ -37,6 +37,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'tomasr/molokai'
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
+Bundle 'TagHighlight'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
