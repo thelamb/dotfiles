@@ -117,6 +117,10 @@ if has("autocmd")
   au BufEnter  [Mm]akefile*  set noet
   au BufLeave  [Mm]akefile*  set et
 
+  " relative numbers make .tex editing laggy
+  au BufEnter *.tex set norelativenumber | set number
+  au BufLeave *.tex set relativenumber
+
   augroup END
 
 endif " has("autocmd")
