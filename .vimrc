@@ -198,6 +198,8 @@ nmap     <F4> <Plug>BufKillBd
 
 " Buffer explorer
 nnoremap <leader>e :BufExplorer<cr>
+nnoremap <leader>bb :bp<cr>
+nnoremap <leader>bf :bn<cr>
 
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
