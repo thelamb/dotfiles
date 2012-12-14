@@ -1,5 +1,4 @@
 
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
@@ -7,6 +6,14 @@ endif
 
 " Use VIM settings, no vi compatibility
 set nocompatible
+
+let g:clang_use_library=1
+let g:clang_library_path='/home/chris/build/llvm/build/Release/lib'
+let g:clang_auto_select=1
+let g:clang_complete_auto=1
+let g:clang_complete_copen=1
+let g:clang_snippets=1
+let s:plugin_path='/home/chris/.vim/bundle/clang_complete/plugin'
 
 filetype off                   " required for Vundle
 
@@ -18,6 +25,8 @@ Bundle 'gmarik/vundle'
 " Github scripts
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'brookhong/cscope.vim'
+Bundle 'nelson/cscope_maps'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'tpope/vim-surround'
@@ -38,6 +47,7 @@ Bundle 'tomasr/molokai'
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
+Bundle 'Rip-Rip/clang_complete'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -171,8 +181,19 @@ set ruler
 set laststatus=2
 set undofile
 
-" ============================================================================================= Mappings
+let b:TypesFileRecurse = 1
 
+" ============================================================================================= Mappings
+"
+" Update tag/csope databases
+function UpdateTags() 
+    silent call TagHighlight#Generation#UpdateAndRead(0)
+    silent call system( "ctags-exuberant -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -i cscope.files" )
+endfunction
+
+command UpdateTags :call UpdateTags()<cr>
+
+nnoremap <leader>f :call g:ClangUpdateQuickFix()<cr>
 " Move text, but keep highlight
 vnoremap > ><CR>gv
 vnoremap < <<CR>gv
@@ -187,7 +208,7 @@ nnoremap k gk
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
 
-nnoremap <silent> <leader>l :TlistToggle<cr>
+nnoremap <silent> <leader>p :TlistToggle<cr>
 
 "   F4 = kill buffer without losing splits
 nmap     <F4> <Plug>BufKillBd
