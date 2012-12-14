@@ -8,12 +8,12 @@ endif
 set nocompatible
 
 let g:clang_use_library=1
-let g:clang_library_path='/home/chris/build/llvm/build/Release/lib'
+let g:clang_library_path=$HOME . '/build/llvm/build/Release/lib'
 let g:clang_auto_select=1
 let g:clang_complete_auto=1
 let g:clang_complete_copen=1
 let g:clang_snippets=1
-let s:plugin_path='/home/chris/.vim/bundle/clang_complete/plugin'
+let s:plugin_path=$HOME . '/.vim/bundle/clang_complete/plugin'
 
 filetype off                   " required for Vundle
 
