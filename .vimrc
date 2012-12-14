@@ -127,6 +127,10 @@ if has("autocmd")
   au BufEnter  [Mm]akefile*  set noet
   au BufLeave  [Mm]akefile*  set et
 
+  " relative numbers make .tex editing laggy
+  au BufEnter *.tex set norelativenumber | set number
+  au BufLeave *.tex set relativenumber
+
   augroup END
 
 endif " has("autocmd")
@@ -215,6 +219,8 @@ nmap     <F4> <Plug>BufKillBd
 
 " Buffer explorer
 nnoremap <leader>e :BufExplorer<cr>
+nnoremap <leader>bb :bp<cr>
+nnoremap <leader>bf :bn<cr>
 
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
