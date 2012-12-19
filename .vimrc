@@ -47,7 +47,7 @@ Bundle 'tomasr/molokai'
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
-Bundle 'Rip-Rip/clang_complete'
+Bundle 'thelamb/clang_complete'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -197,7 +197,11 @@ endfunction
 
 command UpdateTags :call UpdateTags()<cr>
 
-nnoremap <leader>f :call g:ClangUpdateQuickFix()<cr>
+" clang_complete
+nnoremap <leader>f :call g:ClangUpdateQuickFix()<cr>:cwindow<cr>
+nnoremap <Q :cwindow<cr>
+nnoremap <P :pclose<cr>
+
 " Move text, but keep highlight
 vnoremap > ><CR>gv
 vnoremap < <<CR>gv
@@ -214,9 +218,6 @@ nnoremap <leader>t :tabnew<cr>
 
 nnoremap <silent> <leader>p :TlistToggle<cr>
 
-"   F4 = kill buffer without losing splits
-nmap     <F4> <Plug>BufKillBd
-
 " Buffer explorer
 nnoremap <leader>e :BufExplorer<cr>
 nnoremap <leader>bb :bp<cr>
@@ -224,6 +225,8 @@ nnoremap <leader>bf :bn<cr>
 
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
+nnoremap <F4> :set invpaste<CR>i
+inoremap <F4> <ESC>:set invpaste<CR>i
 
 " Fix some Vim awkwardness 
 nnoremap Y y$
@@ -241,7 +244,7 @@ nnoremap <leader>; :
 nnoremap <leader>1 ^
 
 " Moving around splits
-nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <W <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -279,9 +282,9 @@ nnoremap <leader>ai :Tabularize /_.*\zs(<cr> :Tabularize /^ .*\zs)<cr>
 nnoremap <leader>s :wa<cr>
 
 " Switch between code and header file
-nnoremap <leader>o  :FSHere<cr>
-nnoremap <leader>io :FSSplitLeft<cr>
-nnoremap <leader>po :FSSplitRight<cr>
+nnoremap <O  :FSHere<cr>
+nnoremap <IO :FSSplitLeft<cr>
+nnoremap <PO :FSSplitRight<cr>
 
 " ====================================================================== General, uninteresting stuff
 
