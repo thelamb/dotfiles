@@ -7,13 +7,6 @@ endif
 " Use VIM settings, no vi compatibility
 set nocompatible
 
-let g:clang_use_library=1
-let g:clang_library_path=$HOME . '/build/llvm/build/Release/lib'
-let g:clang_auto_select=1
-let g:clang_complete_auto=1
-let g:clang_complete_copen=1
-let g:clang_snippets=1
-let s:plugin_path=$HOME . '/.vim/bundle/clang_complete/plugin'
 
 filetype off                   " required for Vundle
 
@@ -48,6 +41,7 @@ Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
 Bundle 'thelamb/clang_complete'
+Bundle 'vim-scripts/LanguageTool'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -64,13 +58,26 @@ let g:molokai_original = 1
 " Fix some of the molokai colours
 
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
+autocmd ColorScheme * highlight def link doxygenComment SpecialComment
+autocmd ColorScheme * highlight def link doxygenBrief Comment
+autocmd ColorScheme * highlight def link doxygenSpecialOnelineDesc Comment
 
 syn keyword std boost
 
-" ======================================================================================= Plugin options
+" Enable doxygen highlight
+let g:load_doxygen_syntax=1
 
-" Clang_complete options
-let g:clang_complete_copen=0
+" ======================================================================================= Plugin options
+let g:languagetool_jar='$HOME/.vim/LanguageTool/LanguageTool.jar'
+" clang_complete
+let g:clang_case_insensitive=1
+let g:clang_use_library=1
+let g:clang_library_path=$HOME . '/build/llvm/build/Release/lib'
+let g:clang_auto_select=1
+let g:clang_complete_auto=0
+let g:clang_complete_copen=1
+let g:clang_snippets=1
+let s:plugin_path=$HOME . '/.vim/bundle/clang_complete/plugin'
 
 " Local vimrc
 let g:localvimrc_count   = 1
@@ -270,6 +277,7 @@ vnoremap <F1> <ESC>
 
 " Improved = alignment:
 nnoremap <leader>z  :Tabularize /
+nnoremap <leader>zd :Tabularize /\/\/!<<cr>
 nnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
 vnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
 
