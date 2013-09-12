@@ -40,13 +40,21 @@ Bundle 'tomasr/molokai'
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
-Bundle 'thelamb/clang_complete'
+"Bundle 'thelamb/clang_complete'
 Bundle 'vim-scripts/LanguageTool'
+Bundle 'YankRing.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
+Bundle 'mayansmoke'
 " Non - GitHib Repos
+
+" New leader
+let mapleader=','
+
 
 " Colour scheme
 syntax enable
@@ -68,16 +76,11 @@ syn keyword std boost
 let g:load_doxygen_syntax=1
 
 " ======================================================================================= Plugin options
+
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+
 let g:languagetool_jar='$HOME/.vim/LanguageTool/LanguageTool.jar'
-" clang_complete
-let g:clang_case_insensitive=1
-let g:clang_use_library=1
-let g:clang_library_path=$HOME . '/build/llvm/build/Release/lib'
-let g:clang_auto_select=1
-let g:clang_complete_auto=0
-let g:clang_complete_copen=1
-let g:clang_snippets=1
-let s:plugin_path=$HOME . '/.vim/bundle/clang_complete/plugin'
 
 " Local vimrc
 let g:localvimrc_count   = 1
@@ -86,8 +89,9 @@ let g:localvimrc_ask     = 0
 
 " Control-p is bad at managing working-dir, so disable it
 let g:ctrlp_working_path_mode = 0
+
 " Remove respo directories from search
-let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.java$'
+let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.class$'
 
 " Taglist stuff
 let Tlist_Close_On_Select=1
@@ -101,7 +105,13 @@ let Tlist_Sort_Type="name"
 let g:gundo_width=100
 let g:gundo_preview_bottom=1
 
+" YouCompleteMe
 
+" Prevent warning about .ycm_extra_config.py for my projects
+let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*']
+
+nnoremap <C-w> :YcmCompleter GoToDefinitionElseDeclaration<cr>
+nnoremap <leader>f :YcmDiags<cr>
 " ====================================================================================== Auto Command
 
 if has("autocmd")
@@ -142,8 +152,6 @@ if has("autocmd")
 
 endif " has("autocmd")
 
-" New leader
-let mapleader=','
 
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
@@ -174,6 +182,8 @@ set backupdir=~/.vimback,/tmp
 
 set directory=.,~/.vimback,/tmp
 let yankring_history_dir="~/.vim"
+let g:yankring_replace_n_pkey='<C-n>' 
+let g:yankring_replace_n_nkey='<C-m>'
 
 " Just stuff that makes things better ;)
 set nocp
@@ -204,8 +214,8 @@ endfunction
 
 command UpdateTags :call UpdateTags()<cr>
 
-" clang_complete
-nnoremap <leader>f :call g:ClangUpdateQuickFix()<cr>:cwindow<cr>
+"" clang_complete
+"nnoremap <leader>f :call g:ClangUpdateQuickFix()<cr>:cwindow<cr>
 nnoremap <Q :cwindow<cr>
 nnoremap <P :pclose<cr>
 
