@@ -45,6 +45,7 @@ Bundle 'vim-scripts/LanguageTool'
 Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
+Bundle 'bling/vim-airline'
 " Vim.org scripts
 Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
@@ -76,6 +77,8 @@ syn keyword std boost
 let g:load_doxygen_syntax=1
 
 " ======================================================================================= Plugin options
+
+let g:airline#extensions#syntastic#enabled = 1
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
