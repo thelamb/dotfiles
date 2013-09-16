@@ -46,8 +46,8 @@ Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
+Bundle 'majutsushi/tagbar'
 " Vim.org scripts
-Bundle 'taglist.vim'
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
 Bundle 'mayansmoke'
@@ -96,13 +96,9 @@ let g:ctrlp_working_path_mode = 0
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.class$'
 
-" Taglist stuff
-let Tlist_Close_On_Select=1
-let Tlist_Auto_Highlight_Tag=1
-let Tlist_Use_Right_Window=1
-let Tlist_GainFocus_On_ToggleOpen=1
-let Tlist_WinWidth=150
-let Tlist_Sort_Type="name"
+" tagbar
+nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
+nnoremap <leader>P :let g:tagbar_width=50<cr>:TagbarOpen j<cr>
 
 " Gundo
 let g:gundo_width=100
@@ -235,8 +231,6 @@ nnoremap k gk
 
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
-
-nnoremap <silent> <leader>p :TlistToggle<cr>
 
 " Buffer explorer
 nnoremap <leader>e :BufExplorer<cr>
