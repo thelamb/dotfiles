@@ -33,20 +33,21 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
-Bundle 'tomasr/molokai'
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
-"Bundle 'thelamb/clang_complete'
 Bundle 'vim-scripts/LanguageTool'
 Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'majutsushi/tagbar'
+" Colors
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'zeis/vim-kolor'
+Bundle 'tomasr/molokai'
 " Vim.org scripts
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
@@ -61,11 +62,13 @@ let mapleader=','
 syntax enable
 set background=dark
 set t_Co=256
-colorscheme molokai 
+colorscheme mustang
+"colorscheme solarized
+"colorscheme molokai 
 let g:molokai_original = 1
-
-" Fix some of the molokai colours
-
+"
+"" Fix some of the molokai colours
+"
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 autocmd ColorScheme * highlight def link doxygenComment SpecialComment
 autocmd ColorScheme * highlight def link doxygenBrief Comment
@@ -78,7 +81,9 @@ let g:load_doxygen_syntax=1
 
 " ======================================================================================= Plugin options
 
+" airline
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#whitespace#checks = [ ]
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -106,6 +111,10 @@ let g:gundo_preview_bottom=1
 
 " YouCompleteMe
 
+let g:ycm_complete_in_comments=1
+let g:ycm_complete_in_strings=1
+let g:ycm_collect_identifiers_from_comments_and_strings=1
+let g:ycm_collect_identifiers_from_tags_files=1
 " Prevent warning about .ycm_extra_config.py for my projects
 let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*']
 
@@ -157,6 +166,9 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
+set guioptions-=T  " remove toolbar
+set guioptions-=r  " remove right hand scrollbar
+set number         " Since vim 7.4, we can set both number and relativenumber at the same time
 set relativenumber
 " Tab settings
 set tabstop=4
