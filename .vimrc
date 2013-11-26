@@ -62,8 +62,9 @@ let mapleader=','
 syntax enable
 set background=dark
 set t_Co=256
-colorscheme mustang
-"colorscheme solarized
+"colorscheme mustang
+
+colorscheme solarized
 "colorscheme molokai 
 let g:molokai_original = 1
 "
@@ -99,7 +100,10 @@ let g:localvimrc_ask     = 0
 let g:ctrlp_working_path_mode = 0
 
 " Remove respo directories from search
-let g:ctrlp_custom_ignore = '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.class$'
+let g:ctrlp_custom_ignore = { 
+ \ 'dir':  'plotData',   
+ \ 'file': '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.class$',
+ \ }
 
 " tagbar
 nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
