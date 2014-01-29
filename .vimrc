@@ -17,37 +17,32 @@ Bundle 'gmarik/vundle'
 
 " Github scripts
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'brookhong/cscope.vim'
 Bundle 'nelson/cscope_maps'
-Bundle 'tpope/vim-rails'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-abolish'
 Bundle 'tsaleh/vim-supertab'
 Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
-Bundle 'kevinw/pyflakes-vim'
-Bundle 'pyflakes/pyflakes'
 Bundle 'TagHighlight'
 Bundle 'vim-scripts/LanguageTool'
 Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
+Bundle 'justinmk/vim-sneak'
 Bundle 'majutsushi/tagbar'
 " Colors
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'zeis/vim-kolor'
 Bundle 'tomasr/molokai'
+Bundle 'sjl/badwolf'
 " Vim.org scripts
 Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
@@ -64,7 +59,8 @@ set background=dark
 set t_Co=256
 "colorscheme mustang
 
-colorscheme solarized
+colorscheme badwolf 
+"colorscheme solarized
 "colorscheme molokai 
 let g:molokai_original = 1
 "
@@ -101,9 +97,15 @@ let g:ctrlp_working_path_mode = 0
 
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = { 
- \ 'dir':  'plotData',   
- \ 'file': '\.git\|\.hg\|\.svn\|build\|\.un\~$\|\.a\|\.d\|\.o\|\.class$',
+ \ 'dir':  'plotData\|build\|.git\|.hg\|.svn',   
+ \ 'file': '\.un\~$\|\.a\|\.d\|\.o\|\.class$',
  \ }
+
+" sneak
+nmap f <Plug>SneakForward
+nmap F <Plug>SneakBackward
+xmap f <Plug>VSneakForward
+xmap F <Plug>VSneakBackward
 
 " tagbar
 nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
@@ -160,10 +162,15 @@ if has("autocmd")
   au BufEnter *.tex set norelativenumber | set number
   au BufLeave *.tex set relativenumber
 
+  " Enable spellcheck for tex files 
+  au BufEnter *.tex setlocal spell spelllang=en_us 
+
   augroup END
 
 endif " has("autocmd")
 
+" Spellfile so that 'zg' and 'zw' store the good words
+set spellfile="~/.vim/spellfile"
 
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
@@ -210,6 +217,7 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:full
+set lazyredraw
 "set visualbell
 set nocursorline "cursor line is annoying
 set ttyfast
@@ -284,6 +292,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
+
+" highlight last inserted text
+nmap gV `[v`]           
+
 " ================================================================ F-key shortcuts
 
 " I keep hitting F1 when I mean ESC
