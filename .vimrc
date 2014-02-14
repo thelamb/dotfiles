@@ -122,7 +122,7 @@ let g:ycm_complete_in_strings=1
 let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_collect_identifiers_from_tags_files=1
 " Prevent warning about .ycm_extra_config.py for my projects
-let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*']
+let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*', '~/dev/*']
 
 nnoremap <C-w> :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nnoremap <leader>f :YcmDiags<cr>
