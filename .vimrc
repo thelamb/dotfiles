@@ -125,7 +125,8 @@ let g:ycm_collect_identifiers_from_tags_files=1
 " Prevent warning about .ycm_extra_config.py for my projects
 let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*', '~/dev/*']
 
-nnoremap <C-w> :YcmCompleter GoToDefinitionElseDeclaration<cr>
+nnoremap <C-w> :YcmCompleter GoTo<cr>
+nnoremap <C-e> :YcmCompleter GoToImprecise<cr>
 nnoremap <leader>f :YcmDiags<cr>
 " ====================================================================================== Auto Command
 
