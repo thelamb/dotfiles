@@ -39,7 +39,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'justinmk/vim-sneak'
 Bundle 'majutsushi/tagbar'
+Bundle 'rking/ag.vim'
+Bundle 'wellle/targets.vim'
 " Colors
+Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'zeis/vim-kolor'
 Bundle 'tomasr/molokai'
@@ -98,7 +101,7 @@ let g:ctrlp_working_path_mode = 0
 
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = { 
- \ 'dir':  'plotData\|build\|.git\|.hg\|.svn',   
+ \ 'dir':  'plotData\|build\|.git\|.hg\|.svn\|cov_html',   
  \ 'file': '\.un\~$\|\.a\|\.d\|\.o\|\.class$',
  \ }
 
