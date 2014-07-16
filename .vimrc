@@ -41,7 +41,10 @@ Bundle 'justinmk/vim-sneak'
 Bundle 'majutsushi/tagbar'
 Bundle 'rking/ag.vim'
 Bundle 'wellle/targets.vim'
+Bundle 'terryma/vim-smooth-scroll'
+Bundle 'junegunn/limelight.vim'
 " Colors
+Bundle 'jonathanfilip/vim-lucius'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'zeis/vim-kolor'
@@ -59,13 +62,12 @@ let mapleader=','
 
 " Colour scheme
 syntax enable
-set background=dark
-set t_Co=256
-"colorscheme mustang
+"set background=dark
 
-colorscheme badwolf 
-"colorscheme solarized
-"colorscheme molokai 
+"colorscheme badwolf 
+colorscheme lucius
+LuciusDark
+
 let g:molokai_original = 1
 "
 "" Fix some of the molokai colours
@@ -77,6 +79,13 @@ autocmd ColorScheme * highlight def link doxygenSpecialOnelineDesc Comment
 
 syn keyword std boost
 
+function! DoIt()
+    let col_num = virtcol('.')
+
+    call cursor(line('.'), col_num)
+endfunction
+
+nnoremap e :call DoIt()<cr>
 " Enable doxygen highlight
 let g:load_doxygen_syntax=1
 
@@ -98,6 +107,10 @@ let g:localvimrc_ask     = 0
 
 " Control-p is bad at managing working-dir, so disable it
 let g:ctrlp_working_path_mode = 0
+
+" Smooth-scroll
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll, 0, 4)<CR>
 
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = { 
