@@ -17,23 +17,25 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Github scripts
-Bundle 'tpope/vim-fugitive'
 Bundle 'brookhong/cscope.vim'
 Bundle 'nelson/cscope_maps'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'tsaleh/vim-supertab'
-Bundle 'garbas/vim-snipmate'
+" Bundle 'garbas/vim-snipmate'
 Bundle 'tomtom/tlib_vim'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'godlygeek/tabular'
+" Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/unite-outline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
 Bundle 'TagHighlight'
 Bundle 'vim-scripts/LanguageTool'
-Bundle 'YankRing.vim'
+" Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
@@ -42,7 +44,6 @@ Bundle 'majutsushi/tagbar'
 Bundle 'rking/ag.vim'
 Bundle 'wellle/targets.vim'
 Bundle 'terryma/vim-smooth-scroll'
-Bundle 'junegunn/limelight.vim'
 " Colors
 Bundle 'jonathanfilip/vim-lucius'
 Bundle 'octol/vim-cpp-enhanced-highlight'
@@ -51,7 +52,7 @@ Bundle 'zeis/vim-kolor'
 Bundle 'tomasr/molokai'
 Bundle 'sjl/badwolf'
 " Vim.org scripts
-Bundle 'bufexplorer.zip'
+" Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
 Bundle 'mayansmoke'
 " Non - GitHib Repos
@@ -107,16 +108,49 @@ let g:localvimrc_ask     = 0
 
 " Control-p is bad at managing working-dir, so disable it
 let g:ctrlp_working_path_mode = 0
-
-" Smooth-scroll
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll, 0, 4)<CR>
-
 " Remove respo directories from search
 let g:ctrlp_custom_ignore = { 
  \ 'dir':  'plotData\|build\|.git\|.hg\|.svn\|cov_html',   
  \ 'file': '\.un\~$\|\.a\|\.d\|\.o\|\.class$',
  \ }
+
+" Unite
+let g:ctrlp_map = '<c-e>'
+
+let g:unite_source_history_yank_enable = 1
+let g:unite_enable_start_insert = 1
+nnoremap <C-p>     :Unite -no-split -buffer-name=files -immediately file_rec/async:!<cr>
+nnoremap <space>/  :Unite ag:.<cr>
+nnoremap <C-n>     :Unite -no-split -here -buffer-name=yank history/yank<cr>
+nnoremap <space>s  :Unite -quick-match buffer<cr>
+nnoremap <leader>o :Unite -no-split -buffer-name=outline -winheight=60 -profile-name=outline -immediately -auto-preview outline<cr>
+
+call unite#custom#profile( 'outline', 'filters', ['sorter_rank'] )
+
+" Use the fuzzy matcher for everything
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" Use the rank sorter for everything
+"call unite#filters#sorter_default#use(['sorter_rank'])
+
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+      \ 'ignore_pattern', join([
+      \ '\.git/',
+      \ '\.hg/',
+      \ '\.svn/',
+      \ '\.cov_html/',
+      \ 'build/',
+      \ 'plotData/',
+      \ '\.un\~$',
+      \ '\.a',
+      \ '\.d',
+      \ '\.o',
+      \ '\.class',
+      \ ], '\|'))
+
+" Smooth-scroll
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll, 0, 4)<CR>
+
 
 " sneak
 nmap f <Plug>SneakForward
@@ -205,6 +239,10 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+" Scrolling 
+set scrolloff=10
+set scrolljump=3
+
 " Searching
 set ignorecase
 set smartcase " Case-sens. search if the string contains a capital
@@ -221,14 +259,14 @@ set formatoptions=qrn1
 set backupdir=~/.vimback,/tmp
 
 set directory=.,~/.vimback,/tmp
-let yankring_history_dir="~/.vim"
-let g:yankring_replace_n_pkey='<C-n>' 
-let g:yankring_replace_n_nkey='<C-m>'
+"let yankring_history_dir="~/.vim"
+"let g:yankring_replace_n_pkey='<C-n>' 
+"let g:yankring_replace_n_nkey='<C-m>'
 
 " Just stuff that makes things better ;)
+set timeout timeoutlen=200 ttimeoutlen=1
 set nocp
 set encoding=utf-8
-set scrolloff=3
 set autoindent
 set showmode
 set showcmd
@@ -246,11 +284,15 @@ set undofile
 let b:TypesFileRecurse = 1
 
 " ============================================================================================= Mappings
+ 
+" <Leader>0: Run the visually selected code in python and replace it with the " " output
+vnoremap <silent> <Leader>0 :!python<cr>
+
 "
 " Update tag/csope databases
 function UpdateTags() 
     silent call TagHighlight#Generation#UpdateAndRead(0)
-    silent call system( "ctags-exuberant -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -i cscope.files" )
+    silent call system( "ctags-exuberant -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -q -i cscope.files" )
 endfunction
 
 command UpdateTags :call UpdateTags()<cr>
@@ -275,9 +317,9 @@ nnoremap k gk
 nnoremap <leader>t :tabnew<cr>
 
 " Buffer explorer
-nnoremap <leader>e :BufExplorer<cr>
-nnoremap <leader>bb :bp<cr>
-nnoremap <leader>bf :bn<cr>
+"nnoremap <leader>e :BufExplorer<cr>
+"nnoremap <leader>bb :bp<cr>
+"nnoremap <leader>bf :bn<cr>
 
 " gundo shortcut
 nnoremap <F5> :GundoToggle<CR>
@@ -321,23 +363,13 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" ===================================================================== Tabularize mapping
+" vim-easy-align
 
-"nnoremap <leader>a :Tabularize /\S\zs .*\(;\\|\/\{2}\\|\/\*\)<cr>:Tabularize /=.*\(;\\|\/\{2}\\|\/\*\)<cr>:Tabularize /;.*\zs\/\{2}<cr>
-"vnoremap <leader>a :Tabularize /\S\zs .*\(;\\|\/\{2}\\|\/\*\)<cr>:Tabularize /=.*\(;\\|\/\{2}\\|\/\*\)<cr>:Tabularize /;.*\zs\/\{2}<cr>
-"nnoremap <leader>f :Tabularize /\S\zs .*\ze(<cr>:Tabularize /(<cr>
-"vnoremap <leader>f :Tabularize /\S\zs .*\ze(<cr>:Tabularize /(<cr>
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <leader>z <Plug>(EasyAlign)
 
-" Improved = alignment:
-nnoremap <leader>z  :Tabularize /
-nnoremap <leader>zd :Tabularize /\/\/!<<cr>
-nnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
-vnoremap <leader>aa :Tabularize / \<\w\{1,\} =<cr> :Tabularize /=<cr>
-
-nnoremap <leader>ag :Tabularize / [sg]et/l0<cr> :Tabularize /[sg]et\w*\zs(<cr> :Tabularize /[sg]et.*\zs)<cr> :Tabularize /{<cr> :Tabularize /=<cr> :Tabularize /}<cr>
-vnoremap <leader>ag :Tabularize / [sg]et/l0<cr> :Tabularize /[sg]et\w*\zs(<cr> :Tabularize /[sg]et.*\zs)<cr> :Tabularize /{<cr> :Tabularize /=<cr> :Tabularize /}<cr>
-
-nnoremap <leader>ai :Tabularize /_.*\zs(<cr> :Tabularize /^ .*\zs)<cr>
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <leader>z <Plug>(EasyAlign)
 
 " Easier saving
 nnoremap <leader>s :wa<cr>
