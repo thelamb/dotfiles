@@ -8,7 +8,6 @@ endif
 " Use VIM settings, no vi compatibility
 set nocompatible
 
-
 filetype off                   " required for Vundle
 
 set rtp+=~/.vim/bundle/vundle/
@@ -22,10 +21,9 @@ Bundle 'nelson/cscope_maps'
 Bundle 'vim-scripts/localvimrc'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
-Bundle 'tsaleh/vim-supertab'
-" Bundle 'garbas/vim-snipmate'
+Bundle 'ervandew/supertab'
 Bundle 'tomtom/tlib_vim'
-" Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'SirVer/ultisnips'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/unite.vim'
@@ -35,7 +33,6 @@ Bundle 'derekwyatt/vim-fswitch'
 Bundle 'sjl/gundo.vim'
 Bundle 'TagHighlight'
 Bundle 'vim-scripts/LanguageTool'
-" Bundle 'YankRing.vim'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
@@ -45,6 +42,8 @@ Bundle 'rking/ag.vim'
 Bundle 'wellle/targets.vim'
 Bundle 'terryma/vim-smooth-scroll'
 " Colors
+Bundle 'derekwyatt/vim-scala'
+" Bundle 'jeaye/color_coded'
 Bundle 'jonathanfilip/vim-lucius'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 Bundle 'altercation/vim-colors-solarized'
@@ -52,7 +51,6 @@ Bundle 'zeis/vim-kolor'
 Bundle 'tomasr/molokai'
 Bundle 'sjl/badwolf'
 " Vim.org scripts
-" Bundle 'bufexplorer.zip'
 Bundle 'vimlatex'
 Bundle 'mayansmoke'
 " Non - GitHib Repos
@@ -115,14 +113,14 @@ let g:ctrlp_custom_ignore = {
  \ }
 
 " Unite
-let g:ctrlp_map = '<c-e>'
+let g:ctrlp_map = '<F8>'
 
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 1
 nnoremap <C-p>     :Unite -no-split -buffer-name=files -immediately file_rec/async:!<cr>
 nnoremap <space>/  :Unite ag:.<cr>
 nnoremap <C-n>     :Unite -no-split -here -buffer-name=yank history/yank<cr>
-nnoremap <space>s  :Unite -quick-match buffer<cr>
+nnoremap <space>s  :Unite -quick-match buffer -immediately<cr>
 nnoremap <leader>o :Unite -no-split -buffer-name=outline -winheight=60 -profile-name=outline -immediately -auto-preview outline<cr>
 
 call unite#custom#profile( 'outline', 'filters', ['sorter_rank'] )
@@ -140,6 +138,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '\.cov_html/',
       \ 'build/',
       \ 'plotData/',
+      \ 'results/',
       \ '\.un\~$',
       \ '\.a',
       \ '\.d',
@@ -178,6 +177,18 @@ let g:ycm_extra_conf_globlist = ['~/nids/*','~/coding/*', '~/dev/*']
 nnoremap <C-w> :YcmCompleter GoTo<cr>
 nnoremap <C-e> :YcmCompleter GoToImprecise<cr>
 nnoremap <leader>f :YcmDiags<cr>
+
+" ultisnip 
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+"
+" " better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " ====================================================================================== Auto Command
 
 if has("autocmd")
@@ -264,6 +275,9 @@ set directory=.,~/.vimback,/tmp
 "let g:yankring_replace_n_nkey='<C-m>'
 
 " Just stuff that makes things better ;)
+
+" Make background work properly with screen/tmux
+set t_ut=
 set timeout timeoutlen=200 ttimeoutlen=1
 set nocp
 set encoding=utf-8
