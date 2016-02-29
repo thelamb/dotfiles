@@ -19,13 +19,13 @@ call neobundle#begin(expand('/home/chris/.vim/bundle'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-
 NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'linux' : 'make', }, }
 NeoBundle 'vim-scripts/localvimrc'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'derekwyatt/vim-fswitch'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'brookhong/cscope.vim'
@@ -33,18 +33,21 @@ NeoBundle 'nelson/cscope_maps'
 NeoBundle 'Valloric/YouCompleteMe', { 'build' : { 'linux' : './install.sh --clang-completer', }, }
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'majutsushi/tagbar'
+"NeoBundle 'kana/vim-smartinput'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'haya14busa/incsearch.vim'
+NeoBundle 'unblevable/quick-scope'
+
 " Colors
-NeoBundle 'bbchung/clighter'
+"NeoBundle 'bbchung/clighter'
 NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
+"NeoBundle 'rking/ag.vim'
+"NeoBundle 'majutsushi/tagbar'
 " Bundle 'tomtom/tlib_vim'
-" Bundle 'Shougo/unite-outline'
-" Bundle 'kien/ctrlp.vim'
 " Bundle 'TagHighlight'
 " Bundle 'vim-scripts/LanguageTool'
-" Bundle 'scrooloose/syntastic'
 " Bundle 'bling/vim-airline'
 " Bundle 'justinmk/vim-sneak'
 " Bundle 'rking/ag.vim'
@@ -95,12 +98,12 @@ let g:clighter_autostart = 1
 let g:clighter_libclang_file = '/home/chris/.vim/bundle/YouCompleteMe/third_party/ycmd/libclang.so'
 let g:clighter_occurrences_mode = 0
 
-hi clighterNamespaceRef term=NONE cterm=NONE ctermbg=NONE ctermfg=50 gui=NONE
-hi clighterDeclRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
-hi clighterMemberRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
-hi clighterMemberRefExprVar term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
-hi clighterTypeRef term=NONE cterm=NONE ctermbg=NONE ctermfg=155 gui=NONE
-hi clighterRef term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
+:hi clighterNamespaceRef term=NONE cterm=NONE ctermbg=NONE ctermfg=50 gui=NONE
+:hi clighterDeclRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
+:hi clighterMemberRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
+:hi clighterMemberRefExprVar term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
+:hi clighterTypeRef term=NONE cterm=NONE ctermbg=NONE ctermfg=155 gui=NONE
+:hi clighterRef term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
 
 "
 " }}}
@@ -135,17 +138,17 @@ let g:localvimrc_ask     = 0
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 1
 nnoremap <C-p>     :Unite -no-split -buffer-name=files -immediately file_rec/async:!<cr>
-nnoremap <space>/  :Unite ag:.<cr>
-nnoremap <C-n>     :Unite -no-split -here -buffer-name=yank history/yank<cr>
-nnoremap <space>s  :Unite -quick-match buffer -immediately<cr>
-nnoremap <leader>o :Unite -no-split -buffer-name=outline -winheight=60 -profile-name=outline -immediately -auto-preview outline<cr>
+nnoremap <leader>e  :Unite -start-insert buffer -immediately<cr>
+nnoremap <leader>p :Unite -buffer-name=outline -vertical -profile-name=outline -immediately outline<cr>
+nnoremap <leader>y :Unite -no-split -buffer-name=yank history/yank<cr>
+nnoremap <space>/ :Unite -no-split -buffer-name=search grep:.<cr>
 
 call unite#custom#profile( 'outline', 'filters', ['sorter_rank'] )
 
 " Use the fuzzy matcher for everything
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Use the rank sorter for everything
-"call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#filters#sorter_default#use(['sorter_length'])
 
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ 'ignore_pattern', join([
@@ -153,9 +156,12 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '\.hg/',
       \ '\.svn/',
       \ '\.cov_html/',
+      \ 'cov_html/',
+      \ 'coverage/',
       \ 'build/',
       \ 'plotData/',
       \ 'results/',
+      \ '\.pcap$',
       \ '\.un\~$',
       \ '\.a',
       \ '\.d',
@@ -165,16 +171,46 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
 
 " }}}
 " sneak {{{
-nmap f <Plug>SneakForward
-nmap F <Plug>SneakBackward
-xmap f <Plug>VSneakForward
-xmap F <Plug>VSneakBackward
+"nmap f <Plug>SneakForward
+"nmap F <Plug>SneakBackward
+"xmap f <Plug>VSneakForward
+"xmap F <Plug>VSneakBackward
 
 " }}} 
 " tagbar {{{
-nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
-nnoremap <leader>P :let g:tagbar_width=50<cr>:TagbarOpen j<cr>
+"nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
+"nnoremap <leader>P :let g:tagbar_width=50<cr>:TagbarOpen j<cr>
 
+" }}}
+" incsearch {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+" }}}
+" quick-scope {{{
+" Only show quick-scope highlights after f/F/t/T is pressed
+function! Quick_scope_selective(movement)
+    let needs_disabling = 0
+    if !g:qs_enable
+        QuickScopeToggle
+        redraw
+        let needs_disabling = 1
+    endif
+
+    let letter = nr2char(getchar())
+
+    if needs_disabling
+        QuickScopeToggle
+    endif
+
+    return a:movement . letter
+endfunction
+
+let g:qs_enable = 0
+
+for i in  [ 'f', 'F', 't', 'T' ]
+    execute 'noremap <expr> <silent>' . i . " Quick_scope_selective('". i . "')"
+endfor
 " }}}
 " Gundo {{{
 let g:gundo_width=100
@@ -339,7 +375,7 @@ vnoremap <silent> <Leader>0 :!python<cr>
 " Update tag/csope databases
 function UpdateTags() 
 "    silent call TagHighlight#Generation#UpdateAndRead(0)
-    silent call system( "ctags-exuberant -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -q -i cscope.files" )
+    silent call system( "ctags-exuberant --fields=+l -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -q -i cscope.files" )
 endfunction
 
 command UpdateTags :call UpdateTags()<cr>
@@ -399,10 +435,6 @@ set suffixes+=~
 set suffixes+=.swp
 set suffixes+=.o
 set suffixes+=.class
-
-" Disable bracket errors (fucks up in C++0x atm)
-:hi link cErrInParen Normal
-:hi link cErrInBracket Normal
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
