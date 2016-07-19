@@ -1,5 +1,30 @@
 # Global snippets
 
+
+snippet ot
+	<objecttype>
+		<key>${1}</key>
+		<shortdesc>${2}</shortdesc>
+		<longdesc></longdesc>
+		<variations>
+			<variation>
+				<key>0</key>
+				<shortdesc>All variations</shortdesc>
+				<longdesc></longdesc>
+				<supportedmessagetypes>${3:1}</supportedmessagetypes>
+			</variation>
+			${4}
+		</variations>
+	</objecttype>
+
+snippet vt 
+	<variation>
+		<key></key>
+		<shortdesc>${1}</shortdesc>
+		<longdesc></longdesc>
+		<supportedmessagetypes>129,130</supportedmessagetypes>
+	</variation>
+
 # (c) holds no legal value ;)
 snippet c)
 	Copyright `&enc[:2] == "utf" ? "©" : "(c)"` `strftime("%Y")` ${1:`g:snips_author`}. All Rights Reserved.${2}

@@ -37,6 +37,7 @@ NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'unblevable/quick-scope'
+NeoBundle 'wellle/targets.vim'
 
 " Colors
 "NeoBundle 'bbchung/clighter'
@@ -51,7 +52,6 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " Bundle 'bling/vim-airline'
 " Bundle 'justinmk/vim-sneak'
 " Bundle 'rking/ag.vim'
-" Bundle 'wellle/targets.vim'
 " Bundle 'terryma/vim-smooth-scroll'
 " Bundle 'derekwyatt/vim-scala'
 " " Bundle 'jeaye/color_coded'
@@ -137,9 +137,9 @@ let g:localvimrc_ask     = 0
 
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 1
-nnoremap <C-p>     :Unite -no-split -buffer-name=files -immediately file_rec/async:!<cr>
-nnoremap <leader>e  :Unite -start-insert buffer -immediately<cr>
-nnoremap <leader>p :Unite -buffer-name=outline -vertical -profile-name=outline -immediately outline<cr>
+nnoremap <C-p>     :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+nnoremap <leader>e  :Unite -start-insert buffer -start-insert<cr>
+nnoremap <leader>p :Unite -buffer-name=outline -vertical -profile-name=outline -start-insert outline<cr>
 nnoremap <leader>y :Unite -no-split -buffer-name=yank history/yank<cr>
 nnoremap <space>/ :Unite -no-split -buffer-name=search grep:.<cr>
 
@@ -159,8 +159,11 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ 'cov_html/',
       \ 'coverage/',
       \ 'build/',
+      \ 'third-party/',
       \ 'plotData/',
       \ 'results/',
+      \ 'web-nids/',
+      \ 'tut-nids/',
       \ '\.pcap$',
       \ '\.un\~$',
       \ '\.a',
@@ -243,8 +246,9 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 "
 " " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<C-l>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-h>"
+
 " }}}
 " vim-easy-align {{{
 
@@ -317,6 +321,7 @@ set guioptions-=T  " remove toolbar
 set guioptions-=r  " remove right hand scrollbar
 set number         " Since vim 7.4, we can set both number and relativenumber at the same time
 set relativenumber
+set nojoinspaces
  
 " Tab settings
 set tabstop=4
@@ -380,6 +385,14 @@ endfunction
 
 command UpdateTags :call UpdateTags()<cr>
 
+function! BreakHere()
+s/^\(\s*\)\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\2\r\1\4\6
+    call histdel("/", -1)
+endfunction
+
+nnoremap K :call BreakHere()<CR>
+
+"nnoremap K i<CR><Esc>k:s/\s*$//<CR>j^:noh<CR>
 nnoremap <Q :cwindow<cr>
 nnoremap <P :pclose<cr>
 

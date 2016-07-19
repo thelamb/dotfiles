@@ -2,13 +2,37 @@ snippet inc
 	#include <${1}>${2}
 snippet ino 
 	#include "${1}.h"${2}
-# std::map
+
 snippet map
 	std::map<${1:key}, ${2:value}> ${3};
-
-# std::vector
+snippet umap
+	std::unordered_map<${1:key}, ${2:value}> ${3};
 snippet vector
 	std::vector<${1:char}> ${2};
+
+snippet class
+	class ${1:class} 
+	{
+		${2}
+
+	public:
+		$1( ) = default;
+	};
+
+snippet struct
+	struct ${1:class} 
+	{
+		${2}
+
+	public:
+		$1( ) = default;
+	};
+
+snippet lock
+	// BEGIN SCOPED LOCK
+	auto lock = ${1:mLock}.getScopedLock();
+	${2}
+	// END SCOPED LOCK
 
 # Namespace
 snippet ns
@@ -43,6 +67,11 @@ snippet ns4
 	} // namespace $2 
 	} // namespace $1 
 	
+snippet for 
+	for( auto& ${1} : ${2} )
+	{
+		${3}
+	}
 snippet fori
 	auto itEnd = ${1:container}.end();
 	for( auto it = $1.begin(); it != itEnd; ++it ) 
@@ -63,3 +92,33 @@ snippet guard
 	
 	#endif // include guard
 
+snippet l3
+	::scp::enL3Proto${1}
+snippet l4
+	::scp::enL4Proto${1}
+snippet l7
+	::scp::enL7Proto${1}
+snippet evt
+	sl::evtid::${1}
+
+snippet bc
+	BOOST_CHECK( ${1} == ${2} );
+snippet bce
+	BOOST_CHECK_EQUAL( ${1}, ${2} );
+snippet btc 
+	BOOST_AUTO_TEST_CASE( ${1} )
+	{
+		ut::DefaultTestInstance testInstance;
+
+		ut::PcapSniffer<Stream> sniff;
+		
+		${2}
+	}
+snippet bts 
+	BOOST_AUTO_TEST_SUITE( ${1} )
+	${2}
+	BOOST_AUTO_TEST_SUITE_END() // $1
+
+snippet printalerts
+	for( auto& a : sl::nids::alert::Manager::getCCQueueRef() )
+		std::cout << a->eventTypeID << "\n";
