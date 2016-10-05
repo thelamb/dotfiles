@@ -2,14 +2,73 @@ snippet inc
 	#include <${1}>${2}
 snippet ino 
 	#include "${1}.h"${2}
-
 snippet map
 	std::map<${1:key}, ${2:value}> ${3};
 snippet umap
 	std::unordered_map<${1:key}, ${2:value}> ${3};
 snippet vector
 	std::vector<${1:char}> ${2};
+snippet remove_if
+	${1:container}.erase( std::remove_if( $1.begin(), $1.end(), [${2}]( const ${3:type}& aVal ) 
+		{
+			${4}	
+		} ), $1.end() );
+		${5}
 
+snippet InitAndDestruct
+	struct InitAndDestruct_${1} : public commons::InitAndDestruct 
+	{
+		void initConfig() override
+		{
+
+		}
+
+		void init() override
+		{
+
+		}
+
+		void destruct() override
+		{
+
+		}
+
+		std::string identity() override { return "${2}$1"; }
+	};
+
+	InitAndDestruct_$1 gInitAndDestruct_$1;
+snippet ui_SCPHandler
+	struct SCPHandler_${1} : public ui::SCPCallback
+	{
+		void onSCPCommand( scp::enCommandCode aCommand, const ui::scp_cmd_type* aRequestP,
+						   std::unique_ptr<ui::scp_cmd_type>& aResponsePtr ) override
+		{
+			switch( aCommand )
+			{
+			case scp::enCommandCode::${3}:
+			{
+
+			}
+			}
+		}
+
+		void onSCPCommandCompleted( scp::enCommandCode aCommandCode, const ui::scp_cmd_type*, scp::enCommandCode,
+									const ui::scp_cmd_type* ) override
+		{
+		}
+
+		std::string identity() override { return "${2}"; }
+	};
+snippet ui_TerminalCallback
+	struct TerminalCallback_${1} : public ui::TerminalCallback
+	{
+		void onTerminalCommand( const std::string& aCategory, const std::string& aCommand,
+								std::map<std::string, ui::terminal::ParamValue>& aValues ) override
+		{
+		}
+
+		std::string identity() override { return "${2}$1"; }
+	};
 snippet class
 	class ${1:class} 
 	{
@@ -33,20 +92,16 @@ snippet lock
 	auto lock = ${1:mLock}.getScopedLock();
 	${2}
 	// END SCOPED LOCK
-
-# Namespace
 snippet ns
 	namespace ${1:ns} {
 		${2}
 	} // namespace $1 
-
 snippet ns2
 	namespace ${1:ns} {
 	namespace ${2:ns} {
 		${3}
 	} // namespace $2 
 	} // namespace $1 
-
 snippet ns3
 	namespace ${1:ns} {
 	namespace ${2:ns} {
@@ -55,7 +110,6 @@ snippet ns3
 	} // namespace $3 
 	} // namespace $2 
 	} // namespace $1 
-
 snippet ns4
 	namespace ${1:ns} {
 	namespace ${2:ns} {
@@ -66,7 +120,6 @@ snippet ns4
 	} // namespace $3 
 	} // namespace $2 
 	} // namespace $1 
-	
 snippet for 
 	for( auto& ${1} : ${2} )
 	{
@@ -93,14 +146,13 @@ snippet guard
 	#endif // include guard
 
 snippet l3
-	::scp::enL3Proto${1}
+	scp::enL3Proto${1}
 snippet l4
-	::scp::enL4Proto${1}
+	scp::enL4Proto${1}
 snippet l7
-	::scp::enL7Proto${1}
+	scp::enL7Proto${1}
 snippet evt
-	sl::evtid::${1}
-
+	commons::evtid::${1}
 snippet bc
 	BOOST_CHECK( ${1} == ${2} );
 snippet bce
@@ -118,7 +170,6 @@ snippet bts
 	BOOST_AUTO_TEST_SUITE( ${1} )
 	${2}
 	BOOST_AUTO_TEST_SUITE_END() // $1
-
 snippet printalerts
 	for( auto& a : sl::nids::alert::Manager::getCCQueueRef() )
 		std::cout << a->eventTypeID << "\n";

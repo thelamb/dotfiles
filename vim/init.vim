@@ -43,6 +43,8 @@ NeoBundle 'wellle/targets.vim'
 "NeoBundle 'bbchung/clighter'
 NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
+NeoBundle 'justinmk/molokai'
+NeoBundle 'frankier/neovim-colors-solarized-truecolor-only'
 
 "NeoBundle 'rking/ag.vim'
 "NeoBundle 'majutsushi/tagbar'
@@ -69,8 +71,7 @@ NeoBundle 'octol/vim-cpp-enhanced-highlight'
 " Required:
 call neobundle#end()
 
-" Required:
-filetype plugin indent on
+" filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
@@ -84,7 +85,12 @@ let mapleader=','
 " Colors {{{
 "
 
-syntax enable
+set termguicolors
+
+"syntax enable
+
+set background=dark
+" colorscheme solarized
 
 colorscheme lucius
 LuciusDark
@@ -132,16 +138,27 @@ let g:localvimrc_count   = 1
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask     = 0
 
+
+
 " }}}
 " Unite {{{
 
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_start_insert = 1
 nnoremap <C-p>     :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
-nnoremap <leader>e  :Unite -start-insert buffer -start-insert<cr>
+nnoremap <leader>e :Unite -no-split -start-insert buffer<cr>
 nnoremap <leader>p :Unite -buffer-name=outline -vertical -profile-name=outline -start-insert outline<cr>
 nnoremap <leader>y :Unite -no-split -buffer-name=yank history/yank<cr>
-nnoremap <space>/ :Unite -no-split -buffer-name=search grep:.<cr>
+nnoremap <leader>/  :Unite -no-split -buffer-name=search grep:.<cr>
+
+" Use rg for file_asyn
+let g:unite_source_rec_async_command = [ 'rg', '--files' ]
+let g:unite_source_rec_find_args = [ ]
+
+" Use rg for 'search'
+let g:unite_source_grep_command = 'rg'
+let g:unite_source_grep_default_opts = '--follow --smart-case --line-number --no-heading --color=never '
+let g:unite_source_grep_recursive_opt = ''
 
 call unite#custom#profile( 'outline', 'filters', ['sorter_rank'] )
 
@@ -150,26 +167,27 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Use the rank sorter for everything
 call unite#filters#sorter_default#use(['sorter_length'])
 
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer',
       \ 'ignore_pattern', join([
       \ '\.git/',
       \ '\.hg/',
       \ '\.svn/',
       \ '\.cov_html/',
-      \ 'cov_html/',
-      \ 'coverage/',
+      \ 'result-files/',
+      \ 'nids$',
+      \ 'core$',
       \ 'build/',
       \ 'third-party/',
-      \ 'plotData/',
       \ 'results/',
       \ 'web-nids/',
       \ 'tut-nids/',
       \ '\.pcap$',
       \ '\.un\~$',
-      \ '\.a',
-      \ '\.d',
-      \ '\.o',
-      \ '\.class',
+      \ '\.a$',
+      \ '\.d$',
+      \ '\.o$',
+      \ '\.so$',
+      \ '\.class$',
       \ ], '\|'))
 
 " }}}
@@ -305,6 +323,10 @@ if has("autocmd")
   au BufEnter *.tex setlocal spell spelllang=en_us 
   au FileType text setlocal spell spelllang=en_us 
 
+  " Automatically uncrustify before save
+  au BufWritePre *.cc :call Uncrustify('cpp')
+  au BufWritePre *.h :call Uncrustify('cpp')
+
   augroup END
 
 endif " has("autocmd")
@@ -407,6 +429,10 @@ vnoremap . :normal .<CR>
 nnoremap j gj
 nnoremap k gk
 
+" Run compilation in separate tmux
+nnoremap <leader>c :!./chrisRunCompile.sh ut<cr><cr>
+nnoremap <leader>C :!./chrisRunCompile.sh nids<cr><cr>
+
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
 
@@ -475,3 +501,40 @@ endif
 
 " Some security vulns exist with using modelines
 set modelines=0
+
+" Restore cursor position, window position, and last search after running a
+" " command.
+function! Preserve(command)
+    " Save the last search.
+    let search = @/
+
+    " Save the current cursor position.
+    let cursor_position = getpos('.')
+
+    " Save the current window position.
+    normal! H
+    let window_position = getpos('.')
+    call setpos('.', cursor_position)
+
+    " Execute the command.
+    execute a:command
+
+    " Restore the last search.
+    let @/ = search
+
+    " Restore the previous window position.
+    call setpos('.', window_position)
+    normal! zt
+
+    " Restore the previous cursor position.
+    call setpos('.', cursor_position)
+endfunction
+
+let g:uncrustify_cfg_file_path = shellescape(fnamemodify('~/dev/nids/helper-files/uncrustify.cfg', ':p'))
+
+function! Uncrustify(language)
+    call Preserve(':silent %!~/build/uncrustify-0.63/src/uncrustify'
+        \ . ' -q '
+        \ . ' -l ' . a:language
+        \ . ' -c ' . g:uncrustify_cfg_file_path)
+endfunction
