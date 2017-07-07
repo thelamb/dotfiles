@@ -38,6 +38,8 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'haya14busa/incsearch.vim'
 NeoBundle 'unblevable/quick-scope'
 NeoBundle 'wellle/targets.vim'
+NeoBundle 'junegunn/fzf'
+NeoBundle 'junegunn/fzf.vim'
 
 " Colors
 "NeoBundle 'bbchung/clighter'
@@ -538,3 +540,12 @@ function! Uncrustify(language)
         \ . ' -l ' . a:language
         \ . ' -c ' . g:uncrustify_cfg_file_path)
 endfunction
+
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cc,h,cpp,c,go,hs,rb,conf}"
+  \ -g "!*.{min.js,swp,o,zip}" 
+  \ -g "!{.git}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
