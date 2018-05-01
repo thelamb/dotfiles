@@ -6,79 +6,51 @@ if v:progname =~? "evim"
   finish
 endif
 
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
+set runtimepath+=/home/chris/.cache/dein/repos/github.com/Shougo/dein.vim
 
-  set runtimepath+=/home/chris/.vim/bundle/neobundle.vim/
+"
+" Scripts {{{
+"
+if dein#load_state('/home/chris/.cache/dein')
+    call dein#begin('/home/chris/.cache/dein')
+
+    " Let dein manage dein
+    call dein#add('/home/chris/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+    " Add or remove your plugins here:
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+    call dein#add('tpope/vim-repeat')
+    call dein#add('ervandew/supertab')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/unite-outline')
+    call dein#add('derekwyatt/vim-fswitch')
+    call dein#add('embear/vim-localvimrc')
+    call dein#add('sjl/gundo.vim')
+    call dein#add('Valloric/YouCompleteMe', { 'build' : { 'linux' : './install.py --clang-completer', }, })
+    call dein#add('junegunn/vim-easy-align')
+    call dein#add('unblevable/quick-scope')
+    call dein#add('junegunn/fzf')
+    call dein#add('junegunn/fzf.vim')
+    call dein#add('haya14busa/incsearch.vim')
+    call dein#add('SirVer/ultisnips')
+    call dein#add('vim-syntastic/syntastic')
+    call dein#add('justinmk/vim-sneak')
+    " cscope doesn't really work that well
+    "call dein#add('chazy/cscope_maps')
+
+    call dein#add('jonathanfilip/vim-lucius')
+
+    call dein#end()
+    call dein#save_state()
 endif
 
-call neobundle#begin(expand('/home/chris/.vim/bundle'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle 'Shougo/vimproc.vim', { 'build' : { 'linux' : 'make', }, }
-NeoBundle 'vim-scripts/localvimrc'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'derekwyatt/vim-fswitch'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'brookhong/cscope.vim'
-NeoBundle 'nelson/cscope_maps'
-NeoBundle 'Valloric/YouCompleteMe', { 'build' : { 'linux' : './install.sh --clang-completer', }, }
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'junegunn/vim-easy-align'
-"NeoBundle 'kana/vim-smartinput'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'haya14busa/incsearch.vim'
-NeoBundle 'unblevable/quick-scope'
-NeoBundle 'wellle/targets.vim'
-NeoBundle 'junegunn/fzf'
-NeoBundle 'junegunn/fzf.vim'
-
-" Colors
-"NeoBundle 'bbchung/clighter'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
-NeoBundle 'justinmk/molokai'
-NeoBundle 'frankier/neovim-colors-solarized-truecolor-only'
-
-"NeoBundle 'rking/ag.vim'
-"NeoBundle 'majutsushi/tagbar'
-" Bundle 'tomtom/tlib_vim'
-" Bundle 'TagHighlight'
-" Bundle 'vim-scripts/LanguageTool'
-" Bundle 'bling/vim-airline'
-" Bundle 'justinmk/vim-sneak'
-" Bundle 'rking/ag.vim'
-" Bundle 'terryma/vim-smooth-scroll'
-" Bundle 'derekwyatt/vim-scala'
-" " Bundle 'jeaye/color_coded'
-" Bundle 'altercation/vim-colors-solarized'
-" Bundle 'zeis/vim-kolor'
-" Bundle 'tomasr/molokai'
-" Bundle 'sjl/badwolf'
-" Bundle 'vimlatex'
-" Bundle 'mayansmoke'
-" 
-"  Requires lua instead of luajit
-" NeoBundleLazy 'jeaye/color_coded', { 'build': { 'unix': 'cmake . && make && make install', }, 'autoload' : { 'filetypes' : ['c', 'cpp', 'objc', 'objcpp'] }, 'build_commands' : ['cmake', 'make'] }
 "
+" At the bottom of the vimrc file you'll find a bunch of plugins we've used
+" but are not actively using anymore
 
-" Required:
-call neobundle#end()
-
-" filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+"
+" }}}
+"
 
 " New leader
 let mapleader=','
@@ -86,10 +58,6 @@ let mapleader=','
 "
 " Colors {{{
 "
-
-set termguicolors
-
-"syntax enable
 
 set background=dark
 " colorscheme solarized
@@ -99,20 +67,6 @@ LuciusDark
 
 syn keyword std boost
 
-" Enable doxygen highlight
-let g:load_doxygen_syntax=1
-
-let g:clighter_autostart = 1 
-let g:clighter_libclang_file = '/home/chris/.vim/bundle/YouCompleteMe/third_party/ycmd/libclang.so'
-let g:clighter_occurrences_mode = 0
-
-:hi clighterNamespaceRef term=NONE cterm=NONE ctermbg=NONE ctermfg=50 gui=NONE
-:hi clighterDeclRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
-:hi clighterMemberRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
-:hi clighterMemberRefExprVar term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
-:hi clighterTypeRef term=NONE cterm=NONE ctermbg=NONE ctermfg=155 gui=NONE
-:hi clighterRef term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
-
 "
 " }}}
 " Folding {{{
@@ -121,8 +75,6 @@ set foldmethod=marker
 
 " 
 "}}} 
-" Plugin options                                    {{{
-" 
 
 " airline {{{
 let g:airline#extensions#syntastic#enabled = 1
@@ -139,9 +91,6 @@ let g:languagetool_jar='$HOME/.vim/LanguageTool/LanguageTool.jar'
 let g:localvimrc_count   = 1
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask     = 0
-
-
-
 " }}}
 " Unite {{{
 
@@ -151,7 +100,7 @@ nnoremap <C-p>     :Unite -no-split -buffer-name=files -start-insert file_rec/as
 nnoremap <leader>e :Unite -no-split -start-insert buffer<cr>
 nnoremap <leader>p :Unite -buffer-name=outline -vertical -profile-name=outline -start-insert outline<cr>
 nnoremap <leader>y :Unite -no-split -buffer-name=yank history/yank<cr>
-nnoremap <leader>/  :Unite -no-split -buffer-name=search grep:.<cr>
+nnoremap <leader>/ :Unite -no-split -buffer-name=search grep:.<cr>
 
 " Use rg for file_asyn
 let g:unite_source_rec_async_command = [ 'rg', '--files' ]
@@ -193,22 +142,9 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer',
       \ ], '\|'))
 
 " }}}
-" sneak {{{
-"nmap f <Plug>SneakForward
-"nmap F <Plug>SneakBackward
-"xmap f <Plug>VSneakForward
-"xmap F <Plug>VSneakBackward
-
-" }}} 
-" tagbar {{{
-"nnoremap <leader>p :let g:tagbar_width=150<cr>:TagbarOpen fjc<cr>
-"nnoremap <leader>P :let g:tagbar_width=50<cr>:TagbarOpen j<cr>
-
-" }}}
 " incsearch {{{
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 " }}}
 " quick-scope {{{
 " Only show quick-scope highlights after f/F/t/T is pressed
@@ -229,7 +165,7 @@ function! Quick_scope_selective(movement)
     return a:movement . letter
 endfunction
 
-let g:qs_enable = 0
+let g:qs_enable = 1
 
 for i in  [ 'f', 'F', 't', 'T' ]
     execute 'noremap <expr> <silent>' . i . " Quick_scope_selective('". i . "')"
@@ -280,6 +216,7 @@ nmap <leader>z <Plug>(EasyAlign)
 " }}}
 " 
 " Fswitch {{{
+" Note: switchlocs is defined in the local .lvimrc
 nnoremap <O  :FSHere<cr>
 nnoremap <IO :FSSplitLeft<cr>
 nnoremap <PO :FSSplitRight<cr>
@@ -401,13 +338,13 @@ let b:TypesFileRecurse = 1
 vnoremap <silent> <Leader>0 :!python<cr>
 
 "
-" Update tag/csope databases
-function UpdateTags() 
-"    silent call TagHighlight#Generation#UpdateAndRead(0)
-    silent call system( "ctags-exuberant --fields=+l -R * && find . -name '*.cc' -or -name '*.h' > cscope.files && cscope -b -q -i cscope.files" )
-endfunction
-
-command UpdateTags :call UpdateTags()<cr>
+"" Update tag/csope databases
+"function UpdateTags() 
+"    "silent call system( "ctags-exuberant --fields=+l -R *" )
+"    silent call system( "find . -name '*.cc' -or -name '*.h' > result-files/cscope.files && cscope -b -q -i result-files/cscope.files" )
+"endfunction
+"
+"command UpdateTags :call UpdateTags()<cr>
 
 function! BreakHere()
 s/^\(\s*\)\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\2\r\1\4\6
@@ -430,10 +367,6 @@ vnoremap . :normal .<CR>
 " Make j/k behave as expected for multi-row lines
 nnoremap j gj
 nnoremap k gk
-
-" Run compilation in separate tmux
-nnoremap <leader>c :!./chrisRunCompile.sh ut<cr><cr>
-nnoremap <leader>C :!./chrisRunCompile.sh nids<cr><cr>
 
 " Open a new tab
 nnoremap <leader>t :tabnew<cr>
@@ -548,4 +481,43 @@ let g:rg_command = '
   \ -g "!{.git}/*" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+" Unused, old scripts
+
+"NeoBundle 'vim-scripts/localvimrc'
+"NeoBundle 'tpope/vim-surround'
+"NeoBundle 'Shougo/unite-outline'
+"NeoBundle 'brookhong/cscope.vim'
+"NeoBundle 'kana/vim-smartinput'
+"NeoBundle 'wellle/targets.vim'
+"NeoBundle 'terryma/vim-multiple-cursors'
+"
+"" Colors
+""NeoBundle 'bbchung/clighter'
+"NeoBundle 'jonathanfilip/vim-lucius'
+"NeoBundle 'octol/vim-cpp-enhanced-highlight'
+"NeoBundle 'justinmk/molokai'
+"NeoBundle 'frankier/neovim-colors-solarized-truecolor-only'
+
+"NeoBundle 'rking/ag.vim'
+"NeoBundle 'majutsushi/tagbar'
+" Bundle 'tomtom/tlib_vim'
+" Bundle 'TagHighlight'
+" Bundle 'vim-scripts/LanguageTool'
+" Bundle 'bling/vim-airline'
+" Bundle 'justinmk/vim-sneak'
+" Bundle 'rking/ag.vim'
+" Bundle 'terryma/vim-smooth-scroll'
+" Bundle 'derekwyatt/vim-scala'
+" " Bundle 'jeaye/color_coded'
+" Bundle 'altercation/vim-colors-solarized'
+" Bundle 'zeis/vim-kolor'
+" Bundle 'tomasr/molokai'
+" Bundle 'sjl/badwolf'
+" Bundle 'vimlatex'
+" Bundle 'mayansmoke'
+" 
+"  Requires lua instead of luajit
+" NeoBundleLazy 'jeaye/color_coded', { 'build': { 'unix': 'cmake . && make && make install', }, 'autoload' : { 'filetypes' : ['c', 'cpp', 'objc', 'objcpp'] }, 'build_commands' : ['cmake', 'make'] }
+"
 
