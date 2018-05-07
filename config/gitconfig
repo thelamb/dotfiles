@@ -1,0 +1,22 @@
+[user]
+	name = Christiaan Schade
+	email = christiaan.schade@securitymatters.eu
+[core]
+	editor = vim
+[alias]
+	st = status
+	co = checkout
+    edit = "!vim `git ls-files -m` -p"
+[diff]
+	tool = =
+	submodule = log
+[push]
+    default = tracking
+[branch]
+    autosetuprebase = always
+[color]
+	ui = true
+[pull]
+	rebase = true
+[status]
+	submodulesummary = 1

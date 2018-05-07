@@ -35,6 +35,7 @@ if dein#load_state('/home/chris/.cache/dein')
     call dein#add('SirVer/ultisnips')
     call dein#add('vim-syntastic/syntastic')
     call dein#add('justinmk/vim-sneak')
+    call dein#add('bbchung/clighter8')
     " cscope doesn't really work that well
     "call dein#add('chazy/cscope_maps')
 
@@ -87,7 +88,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:languagetool_jar='$HOME/.vim/LanguageTool/LanguageTool.jar'
 
 " }}} 
-" Local vimrc 
+" Local vimrc  {{{
 let g:localvimrc_count   = 1
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask     = 0
@@ -140,6 +141,19 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer',
       \ '\.so$',
       \ '\.class$',
       \ ], '\|'))
+
+" }}}
+" clighter {{{
+
+let g:clighter8_autostart = 0 
+let g:clighter8_libclang_path = '/home/chris/.cache/dein/repos/github.com/Valloric/YouCompleteMe/third_party/ycmd/libclang.so.6.0'
+
+:hi clighterNamespaceRef term=NONE cterm=NONE ctermbg=NONE ctermfg=50 gui=NONE
+:hi clighterDeclRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
+:hi clighterMemberRefExprCall term=NONE cterm=NONE ctermbg=NONE ctermfg=151 gui=NONE
+:hi clighterMemberRefExprVar term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
+:hi clighterTypeRef term=NONE cterm=NONE ctermbg=NONE ctermfg=155 gui=NONE
+:hi clighterRef term=NONE cterm=NONE ctermbg=NONE ctermfg=51 gui=NONE
 
 " }}}
 " incsearch {{{
@@ -263,8 +277,8 @@ if has("autocmd")
   au FileType text setlocal spell spelllang=en_us 
 
   " Automatically uncrustify before save
-  au BufWritePre *.cc :call Uncrustify('cpp')
-  au BufWritePre *.h :call Uncrustify('cpp')
+  "" au BufWritePre *.cc :call Uncrustify('cpp')
+  "" au BufWritePre *.h :call Uncrustify('cpp')
 
   augroup END
 
